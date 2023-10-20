@@ -1,0 +1,13 @@
+asgiref==3.7.2
+astroid==3.0.1
+autopep8==2.0.4
+dill==0.3.7
+Django==4.2.6
+isort==5.12.0
+mccabe==0.7.0
+mysqlclient==2.1.1
+platformdirs==3.11.0
+pycodestyle==2.11.1
+pylint==3.0.1
+sqlparse==0.4.4
+tomlkit==0.12.1
