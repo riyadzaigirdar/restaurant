@@ -25,20 +25,18 @@ def login(request):
 
 @api_view(["GET", "POST"])
 @is_authenticated(['admin'])
-def create_employee(request):
+def employee(request):
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Successfully create employee", "data": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Successfully created employee", "data": serializer.data}, status=status.HTTP_201_CREATED)
         else:
             return Response({"message": serializer.errors, "data": None}, status=400)
     else:
         users = User.objects.all()
-        serializer = UserSerializer(data=users, many=True)
 
-        if serializer.is_valid():
-            return Response({"message": "Successfully listed all users", "data": serializer.data}, status=status.HTTP_200_OK)
-        else:
-            return Response({"message": "Successfully listed all users", "data": serializer.data}, status=status.HTTP_200_OK)
+        serializer = UserSerializer(users, many=True)
+
+        return Response({"message": "Successfully listed all users", "data": serializer.data}, status=status.HTTP_200_OK)

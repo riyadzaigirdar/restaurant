@@ -33,6 +33,7 @@ class MenuVoteModel(models.Model):
                              on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
 
     class Meta:
         db_table = 'menu_vote'

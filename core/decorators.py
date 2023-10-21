@@ -7,7 +7,7 @@ from rest_framework.response import Response
 def is_authenticated(roles=[]):
     def decorator(view_func):
         def wrapped_view(request, *args, **kwargs):
-            # Your custom authentication logic here based on roles.
+
             authorization = request.headers.get("Authorization")
 
             if not authorization:
