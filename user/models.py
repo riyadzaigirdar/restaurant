@@ -37,6 +37,9 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=15, choices=[
                             ('admin', 'admin'), ('employee', 'employee')], default='employee')
 
+    class Meta:
+        db_table = 'user'
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
