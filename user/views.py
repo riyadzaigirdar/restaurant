@@ -1,4 +1,5 @@
 from rest_framework import status
+from django.core.cache import cache
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view
@@ -21,6 +22,15 @@ def login(request):
         return Response({"message": "Successfully generated token", "data": {"token": user.create_token()}}, status=status.HTTP_200_OK)
     else:
         return Response({"message": "password didn't match", "data": None}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def logout(request):
+    authorization = request.headers.get("Authorization")
+
+    cache.delete(authorization)
+
+    return Response({"message":  "Successfully logged out", "data": None},  status=status.HTTP_201_CREATED)
 
 
 @api_view(["GET", "POST"])

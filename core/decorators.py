@@ -1,6 +1,7 @@
 import os
 import jwt
 from rest_framework import status
+from django.core.cache import cache
 from rest_framework.response import Response
 
 
@@ -19,7 +20,10 @@ def is_authenticated(roles=[]):
                 user = jwt.decode(authorization, os.environ.get(
                     'JWT_SECRET'), algorithms="HS256")
             except:
-                return Response({"message": "Authentication credentials are not provided", "data": None}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({"message": "Invalid token", "data": None}, status=status.HTTP_401_UNAUTHORIZED)
+
+            if cache.get(authorization) is None:
+                return Response({"message": "Invalid token", "data": None}, status=status.HTTP_401_UNAUTHORIZED)
 
             request.user = user
 

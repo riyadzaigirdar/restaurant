@@ -2,6 +2,7 @@ import os
 import jwt
 import bcrypt
 from django.db import models
+from django.core.cache import cache
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
@@ -59,8 +60,12 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         return check_correct
 
     def create_token(self):
-        return jwt.encode({"id": self.id, "email": self.email,
+        token = jwt.encode({"id": self.id, "email": self.email,
                            "name": self.name, "role": self.role}, os.environ.get('JWT_SECRET'), algorithm="HS256")
+
+        cache.set(token, self.id, timeout=86400)
+
+        return token
 
     def __str__(self):
         return self.email
