@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.db import connection
 from rest_framework import status
 from django.utils import timezone
 from core.decorators import is_authenticated
@@ -32,11 +34,11 @@ def menu(request):
     if request.method == 'POST':
         current_datetime = timezone.now()
 
-        menu_exists = MenuModel.objects.get(restaurant__id=request.data.get(
+        menu_exists = MenuModel.objects.filter(restaurant__id=request.data.get(
             'restaurant'), created_at=current_datetime.date())
 
-        if menu_exists:
-            return Response({"message": 'Given restaurant menu already exist for current day', "data": None}, status=status.HTTP_400_BAD_REQUEST)
+        if len(menu_exists) != 0:
+            return Response({"message": 'Given restaurant, menu already exist for current day', "data": None}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = MenuSerializer(data=request.data)
 
@@ -61,15 +63,9 @@ def menu_vote(request):
         menu__id=request.data.get("menu"), user__id=request.user.get("id"))
 
     if len(vote_exist) != 0:
-        return Response({"message": "You have already voted for this", "data": None}, status=status.HTTP_403_FORBIDDEN)
+        return Response({"message": "You have already voted for this menu", "data": None}, status=status.HTTP_403_FORBIDDEN)
 
     current_datetime = timezone.now()
-
-    already_voted = MenuVoteModel.objects.filter(
-        user__id=request.user.get("id"), created_at=current_datetime.date())
-
-    if len(already_voted) != 0:
-        return Response({"message": "You have already voted for this day", "data": None}, status=status.HTTP_403_FORBIDDEN)
 
     serializer = MenuVoteSerializer(
         data={"menu": request.data.get('menu'), "user": request.user.get('id')})
@@ -79,3 +75,57 @@ def menu_vote(request):
         return Response({"message": "Successfully voted for menu", "data": serializer.data}, status=status.HTTP_201_CREATED)
     else:
         return Response({"message": serializer.errors, "data": None}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+@is_authenticated(['employee'])
+def menu_today(request):
+    current_datetime = timezone.now()
+
+    menus = MenuModel.objects.filter(created_at=current_datetime.date())
+
+    serializer = MenuSerializer(menus, many=True)
+
+    return Response({"message": "Successfully listed today's menus", "data": serializer.data}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@is_authenticated()
+def vote_result(request):
+    date_string = request.GET.get("date")
+
+    raw_query = """
+        select 
+            menu.id as menu_id, 
+            menu.name as menu_name, 
+            (select count(*) from menu_vote where menu_id=menu.id) as votes,
+            restaurant.id as restaurant_id, 
+            restaurant.name as restaurant_name 
+        from 
+            menu
+        inner join restaurant
+            on restaurant.id = menu.restaurant_id 
+        where 
+            menu.created_at='{}'        
+        order by 
+            votes desc;
+        """.format(date_string)
+
+    with connection.cursor() as cursor:
+        cursor.execute(raw_query)
+        results = cursor.fetchall()
+
+    response = []
+
+    for row in results:
+        menu_id, menu_name, votes, restaurant_id, restaurant_name = row
+
+        response.append({
+            "menu_id": menu_id,
+            "menu_name": menu_name,
+            "votes": votes,
+            "restaurant_id": restaurant_id,
+            "restaurant_name": restaurant_name
+        })
+
+    return Response({"message": "Successfully generated vote result for today", "data": response}, status=status.HTTP_200_OK)

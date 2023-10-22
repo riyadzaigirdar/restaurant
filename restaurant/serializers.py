@@ -12,12 +12,13 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 
 class MenuSerializer(serializers.ModelSerializer):
-    restaurant = RestaurantSerializer()
+    restaurant_detail = RestaurantSerializer(
+        source='restaurant', read_only=True)
 
     class Meta:
         model = MenuModel
         fields = ['id', 'name', 'description',
-                  'price', 'restaurant', 'created_at']
+                  'price', 'restaurant', 'restaurant_detail', 'created_at']
         read_only_fields = ['id', 'created_at']
 
 

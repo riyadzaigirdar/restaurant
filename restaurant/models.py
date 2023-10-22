@@ -39,4 +39,4 @@ class MenuVoteModel(models.Model):
         db_table = 'menu_vote'
 
     def __str__(self):
-        return self.id
+        return f"vote id {self.id}"
