@@ -11,10 +11,12 @@ User = get_user_model()
 
 @api_view(["POST"])
 def login(request):
-    user = User.objects.get(email=request.data.get("email"))
+    user = User.objects.filter(email=request.data.get("email"))
 
-    if not user:
+    if len(user) == 0:
         return Response({"message": "that email is not registered", "data": None}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        user = user[0]
 
     correct_pass = user.check_password(request.data.get("password"))
 
