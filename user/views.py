@@ -30,7 +30,7 @@ def logout(request):
 
     cache.delete(authorization)
 
-    return Response({"message":  "Successfully logged out", "data": None},  status=status.HTTP_201_CREATED)
+    return Response({"message":  "Successfully logged out", "data": None},  status=status.HTTP_200_OK)
 
 
 @api_view(["GET", "POST"])

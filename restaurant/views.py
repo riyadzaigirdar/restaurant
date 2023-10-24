@@ -65,8 +65,6 @@ def menu_vote(request):
     if len(vote_exist) != 0:
         return Response({"message": "You have already voted for this menu", "data": None}, status=status.HTTP_403_FORBIDDEN)
 
-    current_datetime = timezone.now()
-
     serializer = MenuVoteSerializer(
         data={"menu": request.data.get('menu'), "user": request.user.get('id')})
 
