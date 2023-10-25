@@ -1,7 +1,7 @@
 
 ### CODING ASSIGNMENT
 
-#### TO START THE PROJECT AUTOMATICALLY SIMPLE RUN 
+#### TO START THE PROJECT AUTOMATICALLY SIMPLE RUN (declaimer: database vol added in project directory)
 
 	docker-compose up
  
