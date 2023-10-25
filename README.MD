@@ -23,14 +23,14 @@
 
 #### TO RUN THE PROJECT MANUNUALLY SIMPLE SET UP THE VIRTUAL ENVIRONEMENT
 
-   1. python -m venv venv
+      1. python -m venv venv
 
-   2. source ./venv/bin/activate
+      2. source ./venv/bin/activate
 
-   3. python manage.py runserver
+      3. python manage.py runserver
 
 #### TO RUN ALL THE TEST TOGERTHER
 
-   python manage.py test
+      python manage.py test
    
 
