@@ -31,7 +31,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db:/var/lib/mysql
+      - ./vol:/var/lib/mysql
   redis:
     image: redis
     ports:

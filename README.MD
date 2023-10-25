@@ -4,6 +4,11 @@
 #### TO START THE PROJECT AUTOMATICALLY SIMPLE RUN 
 
 	docker-compose up
+ 
+#### Admin credentials
+   
+   email => admin@gmail.com 
+   password => 12345
 
 #### ENVIRONMENT VARIABLES ARE
       
