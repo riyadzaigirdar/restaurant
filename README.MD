@@ -7,19 +7,19 @@
  
 #### Admin credentials
    
-   email => admin@gmail.com 
-   password => 12345
+        email => admin@gmail.com 
+        password => 12345
 
 #### ENVIRONMENT VARIABLES ARE
       
-   DB_NAME
-   DB_USER
-   DB_PASS
-   DB_HOST
-   DB_PORT
-   REDIS_HOST
-   REDIS_PORT
-   JWT_SECRET   
+       DB_NAME
+       DB_USER
+       DB_PASS
+       DB_HOST
+       DB_PORT
+       REDIS_HOST
+       REDIS_PORT
+       JWT_SECRET   
 
 #### TO RUN THE PROJECT MANUNUALLY SIMPLE SET UP THE VIRTUAL ENVIRONEMENT
 
