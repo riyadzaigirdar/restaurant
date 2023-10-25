@@ -33,7 +33,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/user?page=1",
+							"raw": "{{host}}/api/v1/user",
 							"host": [
 								"{{host}}"
 							],
@@ -41,12 +41,6 @@
 								"api",
 								"v1",
 								"user"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								}
 							]
 						}
 					},
@@ -65,7 +59,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"ok4@gmail.com\",\n    \"name\": \"ok1\",\n    \"password\": \"12345\"\n}",
+							"raw": "{\n    \"email\": \"employee3@gmail.com\",\n    \"name\": \"employee3\",\n    \"password\": \"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -101,7 +95,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"ok3@gmail.com\",\n    \"password\": \"12345\"\n}",
+							"raw": "{\n    \"email\": \"employee3@gmail.com\",\n    \"password\": \"12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -167,7 +161,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"restaurant 4\", \n    \"location\": \"mirpur\"\n}",
+							"raw": "{\n    \"name\": \"restaurant 2\", \n    \"location\": \"kawran-bazar\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -175,15 +169,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/restaurant/",
+							"raw": "{{host}}/api/v1/restaurant",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"restaurant",
-								""
+								"restaurant"
 							]
 						}
 					},
@@ -244,7 +237,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"menu 2 for sunday\",\n    \"description\": \"menu 2 sunday description\",\n    \"price\": 450,\n    \"restaurant\": 1\n}",
+							"raw": "{\n    \"name\": \"menu 3 for sunday\",\n    \"description\": \"menu 3 sunday description\",\n    \"price\": 650,\n    \"restaurant\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,7 +326,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"menu\": 4\n}",
+							"raw": "{\n    \"menu\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -378,7 +371,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/vote-result?date=2023-10-22",
+							"raw": "{{host}}/api/v1/vote-result?date=2023-10-25",
 							"host": [
 								"{{host}}"
 							],
@@ -390,7 +383,7 @@
 							"query": [
 								{
 									"key": "date",
-									"value": "2023-10-22"
+									"value": "2023-10-25"
 								}
 							]
 						}
